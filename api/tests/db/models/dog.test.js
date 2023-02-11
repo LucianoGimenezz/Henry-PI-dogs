@@ -1,18 +1,18 @@
 /* eslint-disable no-undef */
-const { Dog, conn } = require('../../../src/db.js')
+const { Dogs, conn } = require('../../../src/db.js')
 
-describe('Modelo Dog', () => {
+describe('Modelo Dogs', () => {
   beforeAll(async () => {
     await conn.sync({ force: true })
   })
 
   test('Dog debe existir', () => {
-    const Dog = conn.models.Dog
+    const Dog = conn.models.Dogs
     expect(Dog).toBeDefined()
   })
 
   test('Debe contener las propiedades correctas', async () => {
-    const dog = Dog.build({
+    const dog = Dogs.build({
       name: 'Boxer',
       image: 'example.jpg',
       life_span: '8 - 12',
@@ -25,7 +25,7 @@ describe('Modelo Dog', () => {
 
   test('La propiedad name no puede ser null', async () => {
     try {
-      await Dog.create({
+      await Dogs.create({
         image: 'example.jpg',
         life_span: '8 - 12',
         weight: '14 - 64',
@@ -38,7 +38,7 @@ describe('Modelo Dog', () => {
 
   test('La propiedad image no puede ser null', async () => {
     try {
-      await Dog.create({
+      await Dogs.create({
         name: 'Boxer',
         life_span: '8 - 12',
         weight: '14 - 64',
@@ -51,7 +51,7 @@ describe('Modelo Dog', () => {
 
   test('La propiedad life_span no puede ser null', async () => {
     try {
-      await Dog.create({
+      await Dogs.create({
         name: 'Boxer',
         image: 'example.jpg',
         weight: '14 - 64',
@@ -64,7 +64,7 @@ describe('Modelo Dog', () => {
 
   test('La propiedad weight no puede ser null', async () => {
     try {
-      await Dog.create({
+      await Dogs.create({
         name: 'Boxer',
         image: 'example.jpg',
         life_span: '8 - 12',
@@ -77,7 +77,7 @@ describe('Modelo Dog', () => {
 
   test('La propiedad height no puede ser null', async () => {
     try {
-      await Dog.create({
+      await Dogs.create({
         name: 'Boxer',
         image: 'example.jpg',
         life_span: '8 - 12',
