@@ -3,17 +3,27 @@ const { getDogApi, getDogBD, getDogByNameAPI, getDogByNameBD } = require('../../
 const { Dogs, conn } = require('../../src/db')
 
 describe('Dog Controller API', () => {
-  const dogs = []
-  const dogsByName = []
+  let dogs
+  let dogsByName
   beforeAll(async () => {
     // Llamada para testear el controller getDogApi
     const res = await fetch('https://api.thedogapi.com/v1/breeds')
     const data = await res.json()
-    dogs.push(...data)
+    dogs = data.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        image: item.image?.url,
+        life_span: item.life_span,
+        weight: item.weight.metric,
+        height: item.height.metric
+      }
+    })
+
     // Llamada para testear el controller getDogByNameAPI
-    const resByName = await fetch('https://api.thedogapi.com/v1/breeds/search?q=dog')
-    const dogsMatched = await resByName.json()
-    dogsByName.push(...dogsMatched)
+    dogsByName = dogs.filter((item) => {
+      return item.name.toLowerCase().includes('dog')
+    })
   })
 
   test('getDogApi debe retornar un arreglo con los perros de la API', async () => {
@@ -58,9 +68,17 @@ describe('Dog Controller DB', () => {
 
   test('getDogBD debe traer los perros de la base de datos', async () => {
     const responseDB = await Dogs.findAll()
+    const responseFormatted = responseDB.map((item) => {
+      return {
+        id: item.dataValues.id,
+        name: item.dataValues.name,
+        image: item.dataValues.image,
+        life_span: item.dataValues.life_span
+      }
+    })
     const responseController = await getDogBD()
     expect(responseController.length).toBe(3)
-    expect(responseController).toEqual(responseDB)
+    expect(responseController).toEqual(responseFormatted)
   })
 
   test('getDogByNameBD debe traer los perros que concidan con el nombre recibido por parametro', async () => {
