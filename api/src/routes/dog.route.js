@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const { getDogApi, getDogBD, getDogByNameAPI, getDogByNameBD, getDogByIdAPI, getDogByIdBD } = require('../controllers/dogs.controller')
+const {
+  getDogApi,
+  getDogBD,
+  getDogByNameAPI,
+  getDogByNameBD,
+  getDogByIdAPI,
+  getDogByIdBD
+} = require('../controllers/dogs.controller')
 
 router.get('/', async (req, res) => {
   const { name } = req.query
@@ -9,7 +16,7 @@ router.get('/', async (req, res) => {
       const dogsOfBD = await getDogByNameBD(name)
 
       if (!dogsOfBD.length && !dogsOfApi.length) {
-        return res.status(404).send({ message: 'Dog not found' })
+        return res.status(404).send({ error: 'Dog not found' })
       }
       const concatData = dogsOfApi.concat(dogsOfBD)
       return res.status(200).send(concatData)

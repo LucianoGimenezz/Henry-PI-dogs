@@ -16,9 +16,9 @@ describe('Dog Controller API', () => {
         name: item.name,
         image: item.image?.url,
         life_span: item.life_span,
-        weight: item.weight.metric?.split('-'),
-        height: item.height.metric?.split('-'),
-        temperaments: item.temperament?.split(',')
+        weight: item.weight.metric?.split(' - '),
+        height: item.height.metric?.split(' - '),
+        temperaments: item.temperament?.split(', ')
       }
     })
 
@@ -93,8 +93,8 @@ describe('Dog Controller DB', () => {
         name: item.name,
         image: item.image,
         life_span: item.life_span,
-        weight: item.weight.split('-'),
-        height: item.height.split('-'),
+        weight: item.weight.split(' - '),
+        height: item.height.split(' - '),
         temperaments: item.temperaments.map((item) => item.name)
       }
     })

@@ -7,7 +7,8 @@
     "start": "nodemon -L",
     "test:db": "jest ./tests/db/db.test.js --verbose --detectOpenHandles",
     "test:models": "jest ./tests/db/models --verbose --detectOpenHandles",
-    "test:controllers": "jest ./tests/controller --verbose --detectOpenHandles"
+    "test:controllers": "jest ./tests/controller --verbose --detectOpenHandles",
+    "test:routes": "jest ./tests/routes --verbose --detectOpenHandles"
   },
   "author": "Henry",
   "license": "ISC",

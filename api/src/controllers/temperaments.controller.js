@@ -9,7 +9,7 @@ const getAllTemperaments = async () => {
     uso el metodo .flat() para aplanar el array, quedaria: [1, 2, 3, 4, 5, 6]
     */
 
-    const allTemperaments = data.map((item) => item.temperament?.split(',')).flat()
+    const allTemperaments = data.map((item) => item.temperament?.split(', ')).flat()
 
     // Ahora queda eliminar todas las ocurrencias
 
