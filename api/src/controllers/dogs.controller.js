@@ -1,4 +1,4 @@
-const { Dogs } = require('../db')
+const { Dogs, Temperaments } = require('../db')
 const { Op } = require('sequelize')
 const Formatter = require('../helpers/Formatter')
 
@@ -13,8 +13,9 @@ const Formatter = require('../helpers/Formatter')
   - height
  */
 
+const formmatter = new Formatter()
+
 const getDogApi = async () => {
-  const formmatter = new Formatter()
   try {
     const response = await fetch('https://api.thedogapi.com/v1/breeds')
     const data = await response.json()
@@ -26,9 +27,10 @@ const getDogApi = async () => {
 }
 
 const getDogBD = async () => {
-  const formmatter = new Formatter()
   try {
-    const dogResponse = await Dogs.findAll()
+    const dogResponse = await Dogs.findAll({
+      include: Temperaments
+    })
     formmatter.setDB(dogResponse)
     return formmatter.dataFormatterDB()
   } catch (error) {
@@ -37,7 +39,6 @@ const getDogBD = async () => {
 }
 
 const getDogByNameAPI = async (name) => {
-  const formmatter = new Formatter()
   try {
     const response = await fetch('https://api.thedogapi.com/v1/breeds')
     const dogs = await response.json()
@@ -52,16 +53,44 @@ const getDogByNameAPI = async (name) => {
 }
 
 const getDogByNameBD = async (nameDog) => {
-  const formmatter = new Formatter()
   try {
     const response = await Dogs.findAll({
       where: {
         name: {
           [Op.iRegexp]: nameDog
         }
-      }
+      },
+      include: Temperaments
     })
     formmatter.setDB(response)
+    return formmatter.dataFormatterDB()
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const getDogByIdAPI = async (id) => {
+  try {
+    const response = await fetch('https://api.thedogapi.com/v1/breeds')
+    const data = await response.json()
+
+    const dog = data.find((item) => item.id === parseInt(id))
+    formmatter.setAPI([dog])
+    return formmatter.dataFormatterApi()
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const getDogByIdBD = async (id) => {
+  try {
+    const data = await Dogs.findAll({
+      where: {
+        id
+      },
+      include: Temperaments
+    })
+    formmatter.setDB(data)
     return formmatter.dataFormatterDB()
   } catch (error) {
     throw new Error(error)
@@ -72,5 +101,7 @@ module.exports = {
   getDogApi,
   getDogBD,
   getDogByNameAPI,
-  getDogByNameBD
+  getDogByNameBD,
+  getDogByIdAPI,
+  getDogByIdBD
 }
