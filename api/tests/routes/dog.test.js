@@ -3,6 +3,7 @@ const request = require('supertest')
 const app = require('../../src/app')
 const agent = request(app)
 const { conn, Temperaments, Dogs } = require('../../src/db')
+const getAllTemperaments = require('../../src/controllers/temperaments.controller')
 
 describe('Route GET /dogs', () => {
   test('La ruta /dogs debe traer todos los perros, de la API y la BD', async () => {
@@ -83,5 +84,34 @@ describe('Route GET /dogs:id', () => {
     expect(resForBD.body[0]).toEqual(dogExpectedForBD)
     expect(resForApi.statusCode).toBe(200)
     expect(resForApi.body[0]).toEqual(dogExpectedForApi)
+  })
+})
+
+describe('Route POST /dogs', () => {
+  beforeAll(async () => {
+    await conn.sync({ force: true })
+    await getAllTemperaments()
+  })
+
+  test('La ruta POST /dogs debe crear un perro en la base de datos', async () => {
+    const res = await agent.post('/dogs').send({
+      name: 'boxer',
+      image: 'http://imagen',
+      life_span: '5 - 10 years',
+      weight: '4 - 5',
+      height: '12',
+      temperaments: ['Loyal', 'Friendly']
+    })
+    expect(res.statusCode).toBe(201)
+    expect(res.body.message).toBe('created')
+  })
+
+  test('La ruta POST /dogs, debe devolver un mensaje de error, si no se envia toda la informacion requerida', async () => {
+    const res = await agent.post('/dogs').send({
+      name: 'pitbull',
+      life_span: '6 - 10 years'
+    })
+    expect(res.statusCode).toBe(400)
+    expect(res.body.error).toBe('All fields are required')
   })
 })

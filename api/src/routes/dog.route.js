@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {
   getDogApi,
@@ -7,6 +8,8 @@ const {
   getDogByIdAPI,
   getDogByIdBD
 } = require('../controllers/dogs.controller')
+const { Dogs, Temperaments } = require('../db')
+const getAllTemperaments = require('../controllers/temperaments.controller')
 
 router.get('/', async (req, res) => {
   const { name } = req.query
@@ -45,6 +48,37 @@ router.get('/:id', async (req, res) => {
     return res.status(200).send(dogApi)
   } catch (error) {
     res.status(404).send({ error: error.message })
+  }
+})
+
+router.post('/', async (req, res) => {
+  await getAllTemperaments()
+  try {
+    const { name, image, life_span, height, weight, temperaments } = req.body
+    const temperamentsId = []
+
+    if (!name || !life_span || !height || !weight || !temperaments) throw new Error('All fields are required')
+    const dogCreated = await Dogs.create({
+      name,
+      image: image || 'default',
+      life_span,
+      height,
+      weight
+    })
+
+    for (const temperament of temperaments) {
+      const response = await Temperaments.findOne({
+        where: {
+          name: temperament
+        }
+      })
+      temperamentsId.push(response.id)
+    }
+
+    dogCreated.addTemperaments(temperamentsId)
+    return res.status(201).send({ message: 'created', data: dogCreated })
+  } catch (error) {
+    res.status(400).send({ error: error.message })
   }
 })
 
