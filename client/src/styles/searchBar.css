@@ -1,0 +1,25 @@
+.SearchBar {
+    width: 80%;
+    max-width: 256px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--primary-color);
+    margin-top: 30px;
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.4);
+}
+
+.SearchBar__input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-right: 2px solid var(--primary-color);
+}
+
+.SearchBar__icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+}
