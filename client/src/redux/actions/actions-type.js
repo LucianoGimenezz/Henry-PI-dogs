@@ -1,0 +1,1 @@
+export const GET_ALLDOGS = 'GET_ALLDOGS';
