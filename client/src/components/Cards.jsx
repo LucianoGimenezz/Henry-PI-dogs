@@ -4,9 +4,20 @@ import "../styles/cards.css";
 const Cards = ({ allDogs }) => {
   return (
     <section className="Cards__container">
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
+      {allDogs?.map((item) => {
+        return (
+          <Card
+            key={item.id}
+            id={item.id}
+            image={item.image}
+            name={item.name}
+            lifeSpan={item.life_span}
+            weight={item.weight}
+            height={item.height}
+            temperaments={item.temperaments}
+          />
+        );
+      })}
     </section>
   );
 };

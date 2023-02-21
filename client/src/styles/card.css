@@ -4,4 +4,79 @@
     border-radius: 12px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     place-self: center;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.Container__info {
+    width: 100%;
+    height: 60px;
+    padding: 4px;
+    background-color: var(--primary-color);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: grid;
+    grid-template-rows: 20px 1fr 60px;
+    color: #fff;
+    transition: all ease-in-out .4s;
+}
+
+.Info__name {
+    text-align: center;
+}
+
+.temperament__item {
+    place-self: center;
+    border-radius: 6px;
+    padding: 4px;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+.Info__temperament {
+    width: 100%;
+    display: none;
+    gap: 4px;
+    place-content: center;
+    justify-self: center;
+    grid-template-columns: repeat(auto-fill, 120px);
+}
+
+
+.Info__weight {
+    visibility: hidden;   
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    align-items: end;
+}
+
+.Container:hover .Container__info {
+    height: 80%;
+    transition: all ease-in-out .4s;
+}
+
+.Container:hover .Container__info > p {
+    animation: moveToUp .4s ease-in-out forwards;
+    transition: all ease-in-out .4s;
+}
+
+.Container:hover .Info__temperament {
+    display: grid;
+}
+
+.Container:hover .Info__weight {
+    visibility: visible;
+}
+
+@keyframes moveToUp {
+    0% {
+    }
+
+    100% {
+        transform: translateY(-100px);
+    }
 }

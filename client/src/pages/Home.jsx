@@ -10,6 +10,7 @@ const Home = () => {
   const { allDogs } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
   const handlerFilters = (e) => {
     setFilterOptions({
       ...filterOptions,
@@ -21,7 +22,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllDogs());
-    console.log(allDogs);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,7 +51,7 @@ const Home = () => {
         <button>Filtrar</button>
       </section>
       <section className="Home__data">
-        <Cards />
+        <Cards allDogs={allDogs[currentPage]} />
       </section>
     </div>
   );

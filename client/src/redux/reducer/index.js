@@ -1,7 +1,8 @@
 import { GET_ALLDOGS } from '../actions/actions-type'
 
 const initialState = {
-    allDogs: []
+    allDogs: [],
+    totalPages: 0
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -9,7 +10,8 @@ const reducer = (state = initialState, { type, payload }) => {
         case GET_ALLDOGS:
           return {
             ...state,
-            allDogs: payload
+            allDogs: payload.dogs,
+            totalPages: payload.totalPages
           }  
         default: 
           return { ...state }
