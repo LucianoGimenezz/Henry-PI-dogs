@@ -1,0 +1,51 @@
+.Pagination {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Pagination__pages {
+    width: 80%;
+    padding: 4px;
+    display: flex;
+    gap: 4px;
+}
+
+.Pages__item {
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: transparent;
+}
+.Pages__item > p {
+    padding-right: 2px;
+    padding-bottom: 2px;
+}
+.active {
+    background-color: var(--secondary-color);
+}
+
+.Pagination__control {
+    width: 24px;
+    height: 24px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.Pagination__control[disabled] {
+    opacity: .4;
+}
+
+.Pagination__control img {
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+}

@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
+import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
 import { getAllDogs } from "../redux/actions/";
 import { useSelector, useDispatch } from "react-redux";
@@ -50,9 +51,11 @@ const Home = () => {
         </select>
         <button>Filtrar</button>
       </section>
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <section className="Home__data">
         <Cards allDogs={allDogs[currentPage]} />
       </section>
+      {/* <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
     </div>
   );
 };

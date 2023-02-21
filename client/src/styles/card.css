@@ -56,6 +56,7 @@
 
 .Container:hover .Container__info {
     height: 80%;
+    overflow: auto;
     transition: all ease-in-out .4s;
 }
 
