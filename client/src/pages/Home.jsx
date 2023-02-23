@@ -51,7 +51,11 @@ const Home = () => {
         </select>
         <button>Filtrar</button>
       </section>
-      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={Object.keys(allDogs)}
+      />
       <section className="Home__data">
         <Cards allDogs={allDogs[currentPage]} />
       </section>

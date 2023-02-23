@@ -7,11 +7,11 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
     switch(type) {
-        case GET_ALLDOGS:
+      case GET_ALLDOGS:
           return {
             ...state,
             allDogs: payload.dogs,
-            totalPages: payload.totalPages
+            totalPages: Object.keys(payload.dogs)
           }  
         default: 
           return { ...state }
