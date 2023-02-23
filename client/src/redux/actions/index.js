@@ -1,4 +1,5 @@
-import { GET_ALLDOGS} from './actions-type'
+import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS } from './actions-type'
+
 
 export const getAllDogs = () => {
     return async (dispatch) => {
@@ -22,3 +23,20 @@ export const getAllDogs = () => {
         }
     } 
 }
+
+export const getAllTemperaments = () => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch('http://localhost:3001/temperaments')
+            const data = await res.json()
+            dispatch({
+                type: GET_ALLTEMPERAMENTS,
+                payload: data
+            })
+        } catch (error) {
+          console.error(new Error(error))  
+        }
+    }
+}
+
+export const filterDogs = (option) => ({ type: FILTER_DOGS, payload: option })

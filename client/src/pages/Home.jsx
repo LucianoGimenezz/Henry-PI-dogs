@@ -2,13 +2,14 @@ import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
 import Pagination from "../components/Pagination";
+import Filter from "../components/Filter";
 import { useState, useEffect } from "react";
-import { getAllDogs } from "../redux/actions/";
+import { getAllDogs, getAllTemperaments, filterDogs } from "../redux/actions/";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/home.css";
 
 const Home = () => {
-  const { allDogs } = useSelector((store) => store);
+  const { filteredDogs, temperaments } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,12 +18,15 @@ const Home = () => {
       ...filterOptions,
       [e.target.name]: e.target.value,
     });
-    console.log(e.target.name);
-    console.log(e.target.value);
+  };
+
+  const sendFiltersOptions = () => {
+    dispatch(filterDogs(filterOptions));
   };
 
   useEffect(() => {
     dispatch(getAllDogs());
+    dispatch(getAllTemperaments());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -30,36 +34,15 @@ const Home = () => {
     <div className="Home">
       <Header />
       <SearchBar />
-      <section className="Home__filters">
-        <select onChange={handlerFilters} name="temperament">
-          <option value="null">Temperamentos:</option>
-        </select>
-        <select onChange={handlerFilters} name="origin">
-          <option value="null">Origen:</option>
-          <option value="api">API</option>
-          <option value="bd">BD</option>
-        </select>
-        <select onChange={handlerFilters} name="order">
-          <option value="null">Orden:</option>
-          <option value="a-z">a-z</option>
-          <option value="z-a">z-a</option>
-        </select>
-        <select onChange={handlerFilters} name="weight">
-          <option value="null">Peso:</option>
-          <option value="menor">menor-mayor</option>
-          <option value="mayor">mayor-menor</option>
-        </select>
-        <button>Filtrar</button>
-      </section>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={Object.keys(allDogs)}
+      <Filter
+        handlerFilters={handlerFilters}
+        temperaments={temperaments}
+        sendFiltersOptions={sendFiltersOptions}
       />
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <section className="Home__data">
-        <Cards allDogs={allDogs[currentPage]} />
+        <Cards allDogs={filteredDogs[currentPage]} />
       </section>
-      {/* <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
     </div>
   );
 };

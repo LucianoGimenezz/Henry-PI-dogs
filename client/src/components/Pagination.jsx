@@ -8,11 +8,6 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
   const { totalPages } = useSelector((state) => state);
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(0);
-  // const mid = Math.floor((totalPages - 1) / 2) - 3;
-  const pages = [];
-  for (let i = 1; i <= totalPages.length; i++) {
-    pages.push(i);
-  }
   const handlerPaginationNext = () => {
     if (currentPage + 2 === totalPages.length) {
       setLastIndex(totalPages.length);
@@ -69,8 +64,14 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
     setCurrentPage(parseInt(e.target.innerHTML));
   };
   useEffect(() => {
+    if (totalPages?.length === 1) {
+      setLastIndex(1);
+      return;
+    }
+
     setLastIndex(Math.floor(totalPages?.length / 2));
   }, [totalPages]);
+
   return (
     <div className="Pagination">
       <button
@@ -81,8 +82,8 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
         <img src={prev} alt="Icono de regresar" />
       </button>
       <div className="Pagination__pages">
-        {pages.slice(firstIndex, lastIndex).map((numero) => {
-          if (numero === currentPage) {
+        {totalPages.slice(firstIndex, lastIndex).map((numero) => {
+          if (parseInt(numero) === currentPage) {
             return (
               <div
                 key={numero}
@@ -99,7 +100,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
               className="Pages__item"
               onClick={handlerPaginationOne}
             >
-              {numero}
+              <p>{numero}</p>
             </div>
           );
         })}
