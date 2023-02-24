@@ -1,11 +1,17 @@
 import "../styles/card.css";
+import { Link } from "react-router-dom";
 
-const Card = ({ image, name, temperaments, weight }) => {
+const Card = ({ image, name, temperaments, weight, id }) => {
   return (
     <div className="Container" style={{ backgroundImage: `url(${image})` }}>
       <div className="Container__info">
         <div className="Info__name">
-          <p>{name}</p>
+          <Link
+            to={`/details/${id}`}
+            style={{ textDecoration: "none", color: "#fff" }}
+          >
+            <p>{name}</p>
+          </Link>
         </div>
         <div className="Info__temperament">
           {temperaments?.map((item, index) => {

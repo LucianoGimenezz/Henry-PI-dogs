@@ -29,6 +29,7 @@ const Home = () => {
 
   const onSearch = (name) => {
     dispatch(getDogByName(name));
+    setCurrentPage(1);
   };
 
   const handlerResetFilters = () => {

@@ -4,7 +4,8 @@ GET_ALLTEMPERAMENTS,
 FILTER_DOGS, 
 RESET_FILTERS, 
 GET_DOG_BY_NAME,
-SET_LOADING
+SET_LOADING,
+GET_DOG_BY_ID
 } from '../actions/actions-type'
 
 import { filter, paginate } from '../../utils'
@@ -14,7 +15,8 @@ const initialState = {
     filteredDogs: [],
     temperaments: [],
     totalPages: [],
-    loading: true
+    loading: true,
+    detailDog: {}
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -58,6 +60,11 @@ const reducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           loading: !state.loading
+        }
+      case GET_DOG_BY_ID:
+        return {
+          ...state,
+          detailDog: payload[0]
         }
       default: 
           return { ...state }

@@ -21,6 +21,15 @@
   top: 0;
 }
 
+.Header__nav--show {
+  justify-content: space-between;
+}
+
+.Header__nav  > a > img {
+  width: 30px;
+  height: 30px;
+}
+
 .Header__button {
     width: 40px;
     height: 40px;
