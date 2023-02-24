@@ -1,5 +1,24 @@
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS, RESET_FILTERS } from './actions-type'
+import { 
+GET_ALLDOGS,
+GET_ALLTEMPERAMENTS,
+FILTER_DOGS, RESET_FILTERS,
+GET_DOG_BY_NAME, 
+SET_LOADING
+} from './actions-type'
+
 import { paginate } from '../../utils'
+
+export const getDogByName = (name) => {
+    return async (dispatch) => {
+        try {
+            const res = await fetch(`http://localhost:3001/dogs?name=${name}`)
+            const data = await res.json()
+            dispatch({ type: GET_DOG_BY_NAME, payload: data })
+        } catch (error) {
+          console.error(new Error(error.message))
+        }
+    }
+}
 
 export const getAllDogs = () => {
     return async (dispatch) => {
@@ -34,3 +53,5 @@ export const getAllTemperaments = () => {
 export const filterDogs = (option) => ({ type: FILTER_DOGS, payload: option })
 
 export const resetFilters = () => ({ type: RESET_FILTERS })
+
+export const setLoading = () =>  ({ type: SET_LOADING })

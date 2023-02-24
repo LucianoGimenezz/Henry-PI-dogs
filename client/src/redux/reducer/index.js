@@ -1,11 +1,20 @@
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS, RESET_FILTERS } from '../actions/actions-type'
+import { 
+GET_ALLDOGS,
+GET_ALLTEMPERAMENTS, 
+FILTER_DOGS, 
+RESET_FILTERS, 
+GET_DOG_BY_NAME,
+SET_LOADING
+} from '../actions/actions-type'
+
 import { filter, paginate } from '../../utils'
 
 const initialState = {
     allDogs: {},
     filteredDogs: [],
     temperaments: [],
-    totalPages: []
+    totalPages: [],
+    loading: true
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -15,7 +24,8 @@ const reducer = (state = initialState, { type, payload }) => {
             ...state,
             allDogs: payload.dogs,
             filteredDogs: payload.dogs,
-            totalPages: Object.keys(payload.dogs)
+            totalPages: Object.keys(payload.dogs),
+            loading: !state.loading
           }  
       case GET_ALLTEMPERAMENTS:
           return {
@@ -36,6 +46,19 @@ const reducer = (state = initialState, { type, payload }) => {
           filteredDogs: state.allDogs,
           totalPages: Object.keys(state.allDogs)
         }   
+      case GET_DOG_BY_NAME:
+        const res = paginate(payload)
+         return {
+          ...state,
+          filteredDogs: res,
+          totalPages: Object.keys(res),
+          loading: !state.loading
+         }
+      case SET_LOADING:
+        return {
+          ...state,
+          loading: !state.loading
+        }
       default: 
           return { ...state }
     }

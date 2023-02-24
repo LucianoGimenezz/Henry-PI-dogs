@@ -3,18 +3,20 @@ import SearchBar from "../components/SearchBar";
 import Cards from "../components/Cards";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
+import Loader from "../components/Loader";
 import { useState, useEffect } from "react";
 import {
   getAllDogs,
   getAllTemperaments,
   filterDogs,
   resetFilters,
+  getDogByName,
 } from "../redux/actions/";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/home.css";
 
 const Home = () => {
-  const { filteredDogs, temperaments } = useSelector((store) => store);
+  const { filteredDogs, temperaments, loading } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +25,10 @@ const Home = () => {
       ...filterOptions,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const onSearch = (name) => {
+    dispatch(getDogByName(name));
   };
 
   const handlerResetFilters = () => {
@@ -38,23 +44,32 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="Home">
       <Header />
-      <SearchBar />
+      <SearchBar onSearch={onSearch} />
       <Filter
         handlerFilters={handlerFilters}
         temperaments={temperaments}
         sendFiltersOptions={sendFiltersOptions}
         resetFilters={handlerResetFilters}
       />
-      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <section className="Home__data">
-        <Cards allDogs={filteredDogs[currentPage]} />
-      </section>
+      {loading && <Loader />}
+      {!loading && (
+        <>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+          <section className="Home__data">
+            <Cards allDogs={filteredDogs[currentPage]} />
+          </section>
+        </>
+      )}
     </div>
   );
 };
