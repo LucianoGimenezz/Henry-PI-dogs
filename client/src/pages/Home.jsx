@@ -4,7 +4,12 @@ import Cards from "../components/Cards";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import { useState, useEffect } from "react";
-import { getAllDogs, getAllTemperaments, filterDogs } from "../redux/actions/";
+import {
+  getAllDogs,
+  getAllTemperaments,
+  filterDogs,
+  resetFilters,
+} from "../redux/actions/";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/home.css";
 
@@ -18,6 +23,11 @@ const Home = () => {
       ...filterOptions,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handlerResetFilters = () => {
+    dispatch(resetFilters());
+    setCurrentPage(1);
   };
 
   const sendFiltersOptions = () => {
@@ -39,6 +49,7 @@ const Home = () => {
         handlerFilters={handlerFilters}
         temperaments={temperaments}
         sendFiltersOptions={sendFiltersOptions}
+        resetFilters={handlerResetFilters}
       />
       <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <section className="Home__data">

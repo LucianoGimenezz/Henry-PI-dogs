@@ -35,6 +35,12 @@
     font-weight: 600;
 }
 
+.Home__filters .Filters__btn {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    background-color: transparent;
+}
+
 .Home__data {
     width: 100%;
     height: auto;

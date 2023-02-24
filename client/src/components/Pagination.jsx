@@ -11,6 +11,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
   const { totalPages } = useSelector((state) => state);
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(0);
+
   const handlerPaginationNext = () => {
     if (currentPage + 2 === totalPages.length) {
       setLastIndex(totalPages.length);
@@ -86,7 +87,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
         <img src={prev} alt="Icono de regresar" />
       </button>
       <div className="Pagination__pages">
-        {totalPages.length < 6 &&
+        {totalPages.length <= 6 &&
           totalPages.map((numero) => {
             if (parseInt(numero) === currentPage) {
               return (
@@ -109,7 +110,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
               </div>
             );
           })}
-        {totalPages.length >= 6 &&
+        {totalPages.length > 6 &&
           totalPages.slice(firstIndex, lastIndex).map((numero) => {
             if (parseInt(numero) === currentPage) {
               return (
@@ -132,7 +133,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
               </div>
             );
           })}
-        {lastIndex !== totalPages.length && totalPages.length >= 6 && (
+        {lastIndex !== totalPages.length && totalPages.length > 6 && (
           <>
             <div className="Pages__item">...</div>
             <div className="Pages__item" onClick={handlerPaginationOne}>

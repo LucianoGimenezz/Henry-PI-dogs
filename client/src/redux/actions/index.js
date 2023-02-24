@@ -1,22 +1,14 @@
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS } from './actions-type'
-
+import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS, RESET_FILTERS } from './actions-type'
+import { paginate } from '../../utils'
 
 export const getAllDogs = () => {
     return async (dispatch) => {
         try {
             const res = await fetch('http://localhost:3001/dogs')
             const data = await res.json()
-            const totalPages = Math.floor(data.length / 8)
-            let currentPage = 1
-            const pagination = {}
-            for(let i = 0; i < data.length; i++) {
-                if (!pagination[currentPage]) pagination[currentPage] = [] 
-                if(pagination[currentPage].length < 8) pagination[currentPage].push(data[i])
-                else currentPage++
-            }
             dispatch({
                 type: GET_ALLDOGS,
-                payload: {dogs: pagination, totalPages}
+                payload: {dogs: paginate(data)}
             })
         } catch (error) {
            console.error(new Error(error.message))   
@@ -40,3 +32,5 @@ export const getAllTemperaments = () => {
 }
 
 export const filterDogs = (option) => ({ type: FILTER_DOGS, payload: option })
+
+export const resetFilters = () => ({ type: RESET_FILTERS })

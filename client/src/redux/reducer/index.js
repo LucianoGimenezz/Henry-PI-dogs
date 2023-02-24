@@ -1,5 +1,5 @@
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS } from '../actions/actions-type'
-import { filter } from '../../utils'
+import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, FILTER_DOGS, RESET_FILTERS } from '../actions/actions-type'
+import { filter, paginate } from '../../utils'
 
 const initialState = {
     allDogs: {},
@@ -24,18 +24,18 @@ const reducer = (state = initialState, { type, payload }) => {
           }
       case FILTER_DOGS:
         const response = filter(payload, Object.values(state.allDogs).flat())
-        let currentPage = 1
-        const pagination = {}
-        for(let i = 0; i < response.length; i++) {
-            if (!pagination[currentPage]) pagination[currentPage] = [] 
-            if(pagination[currentPage].length < 8) pagination[currentPage].push(response[i])
-            else currentPage++
-        }
+        const data = paginate(response)
         return {
           ...state,
-          filteredDogs: pagination,
-          totalPages: Object.keys(pagination)
+          filteredDogs: data,
+          totalPages: Object.keys(data)
          }    
+      case RESET_FILTERS:
+        return {
+          ...state,
+          filteredDogs: state.allDogs,
+          totalPages: Object.keys(state.allDogs)
+        }   
       default: 
           return { ...state }
     }
