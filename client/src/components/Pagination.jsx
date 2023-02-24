@@ -4,6 +4,9 @@ import next from "../assets/angulo-derecho.png";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+/*
+  TODO: Arreglar los bugs de la paginación cuando son pocas paginas
+*/
 const Pagination = ({ currentPage, setCurrentPage }) => {
   const { totalPages } = useSelector((state) => state);
   const [firstIndex, setFirstIndex] = useState(0);
@@ -65,10 +68,11 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
   };
   useEffect(() => {
     if (totalPages?.length === 1) {
+      setFirstIndex(0);
       setLastIndex(1);
       return;
     }
-
+    setFirstIndex(0);
     setLastIndex(Math.floor(totalPages?.length / 2));
   }, [totalPages]);
 
@@ -82,29 +86,53 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
         <img src={prev} alt="Icono de regresar" />
       </button>
       <div className="Pagination__pages">
-        {totalPages.slice(firstIndex, lastIndex).map((numero) => {
-          if (parseInt(numero) === currentPage) {
+        {totalPages.length < 6 &&
+          totalPages.map((numero) => {
+            if (parseInt(numero) === currentPage) {
+              return (
+                <div
+                  key={numero}
+                  className="Pages__item active"
+                  onClick={handlerPaginationOne}
+                >
+                  <p>{numero}</p>
+                </div>
+              );
+            }
             return (
               <div
                 key={numero}
-                className="Pages__item active"
+                className="Pages__item"
                 onClick={handlerPaginationOne}
               >
                 <p>{numero}</p>
               </div>
             );
-          }
-          return (
-            <div
-              key={numero}
-              className="Pages__item"
-              onClick={handlerPaginationOne}
-            >
-              <p>{numero}</p>
-            </div>
-          );
-        })}
-        {lastIndex !== totalPages.length && (
+          })}
+        {totalPages.length >= 6 &&
+          totalPages.slice(firstIndex, lastIndex).map((numero) => {
+            if (parseInt(numero) === currentPage) {
+              return (
+                <div
+                  key={numero}
+                  className="Pages__item active"
+                  onClick={handlerPaginationOne}
+                >
+                  <p>{numero}</p>
+                </div>
+              );
+            }
+            return (
+              <div
+                key={numero}
+                className="Pages__item"
+                onClick={handlerPaginationOne}
+              >
+                <p>{numero}</p>
+              </div>
+            );
+          })}
+        {lastIndex !== totalPages.length && totalPages.length >= 6 && (
           <>
             <div className="Pages__item">...</div>
             <div className="Pages__item" onClick={handlerPaginationOne}>

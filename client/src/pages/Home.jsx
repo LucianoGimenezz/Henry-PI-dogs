@@ -22,6 +22,7 @@ const Home = () => {
 
   const sendFiltersOptions = () => {
     dispatch(filterDogs(filterOptions));
+    setCurrentPage(1);
   };
 
   useEffect(() => {
