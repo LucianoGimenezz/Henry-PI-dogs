@@ -4,6 +4,7 @@ import Cards from "../components/Cards";
 import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import Loader from "../components/Loader";
+import Modal from "../components/Modal";
 import { useState, useEffect } from "react";
 import {
   getAllDogs,
@@ -20,6 +21,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
   const handlerFilters = (e) => {
     setFilterOptions({
       ...filterOptions,
@@ -43,15 +45,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllDogs());
-    dispatch(getAllTemperaments());
+    if (filteredDogs?.length === 0) {
+      dispatch(getAllDogs());
+      dispatch(getAllTemperaments());
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="Home">
-      <Header />
+      <Header setOpenModal={setOpenModal} />
       <SearchBar onSearch={onSearch} />
       <Filter
         handlerFilters={handlerFilters}
@@ -59,6 +63,7 @@ const Home = () => {
         sendFiltersOptions={sendFiltersOptions}
         resetFilters={handlerResetFilters}
       />
+      {openModal && <Modal setOpenModal={setOpenModal} />}
       {loading && <Loader />}
       {!loading && (
         <>

@@ -62,6 +62,7 @@ const reducer = (state = initialState, { type, payload }) => {
           loading: !state.loading
         }
       case GET_DOG_BY_ID:
+        console.log(state.loading);
         return {
           ...state,
           detailDog: payload[0]

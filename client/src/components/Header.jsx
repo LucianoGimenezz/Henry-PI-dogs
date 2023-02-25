@@ -3,7 +3,10 @@ import backLogo from "../assets/angulo-izquierdo.png";
 import { Link } from "react-router-dom";
 import "../styles/header.css";
 
-const Header = ({ show }) => {
+const Header = ({ show, setOpenModal }) => {
+  const handlerModal = () => {
+    setOpenModal(true);
+  };
   return (
     <header className="Header">
       <nav className={show ? "Header__nav Header__nav--show" : "Header__nav"}>
@@ -12,7 +15,7 @@ const Header = ({ show }) => {
             <img src={backLogo} alt="Boton para vovler atras" />
           </Link>
         )}
-        <button className="Header__button">
+        <button className="Header__button" onClick={handlerModal}>
           <div className="Button_item"></div>
           <div className="Button_item"></div>
           <div className="Button_item"></div>

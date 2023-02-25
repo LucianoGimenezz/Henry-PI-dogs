@@ -15,9 +15,36 @@ const Details = () => {
   }, []);
   console.log(detailDog);
   return (
-    <section className="Details">
+    <>
       <Header show={true} />
-    </section>
+      <section className="Details">
+        <section className="Details__container">
+          <img src={detailDog?.image} alt={detailDog?.name} />
+          <p>{detailDog?.name}</p>
+          <div className="Details__info">
+            <p>
+              {detailDog?.weight?.length > 1
+                ? detailDog?.weight?.join(" - ")
+                : detailDog?.weight?.pop()}{" "}
+              kgs
+            </p>
+            <p>
+              {detailDog?.height?.length > 1
+                ? detailDog?.height?.join(" - ")
+                : detailDog?.height?.pop()}{" "}
+              cm
+            </p>
+            <p>Años de vida:</p>
+            <p>{detailDog?.life_span}</p>
+          </div>
+          <div className="Details__temperament">
+            {detailDog?.temperaments?.map((item, index) => (
+              <div key={index}>{item}</div>
+            ))}
+          </div>
+        </section>
+      </section>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 .Details {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .Details__header {
@@ -12,4 +12,76 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     display: flex;
+}
+
+.Details__container {
+    width: 80%;
+    height: 500px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    background-color: #FAEDCD;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.4);
+}
+
+.Details__container > img {
+    border-radius: 14px;
+    width: 80%;
+    max-width: 320px;
+    max-height: 220px;
+    position: absolute;
+    top: -35px;
+}
+
+.Details__container  > p {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.Details__info {
+    width: 100%;
+    height: 20%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    gap: 6px;
+}
+
+.Details__info > p {
+    place-self: center;
+    font-size: .9rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.Details__temperament {
+    width: 100%;
+    height: 40%;
+    display: grid;
+    position: absolute;
+    overflow: auto;
+    bottom: 0;
+    padding: 6px;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 120px);
+    grid-template-rows: repeat(auto-fit, 40px);
+}
+
+.Details__temperament > div {
+    width: 120px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: .8rem;
+    border-radius: 20px;
+    background-color: var(--primary-color);
 }
