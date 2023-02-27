@@ -1,8 +1,11 @@
 import ReactDOM from "react-dom";
+import { useContext } from "react";
+import { ModalContext } from "../context";
 import { useNavigate } from "react-router-dom";
 import "../styles/modal.css";
 
-const Modal = ({ setOpenModal }) => {
+const Modal = () => {
+  const { setOpenModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const handlerNavigate = (e) => {
     setOpenModal(false);

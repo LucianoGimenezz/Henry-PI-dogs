@@ -5,7 +5,8 @@ import Pagination from "../components/Pagination";
 import Filter from "../components/Filter";
 import Loader from "../components/Loader";
 import Modal from "../components/Modal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ModalContext } from "../context";
 import {
   getAllDogs,
   getAllTemperaments,
@@ -17,11 +18,11 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/home.css";
 
 const Home = () => {
+  const { openModal } = useContext(ModalContext);
   const { filteredDogs, temperaments, loading } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
   const handlerFilters = (e) => {
     setFilterOptions({
       ...filterOptions,
@@ -49,13 +50,12 @@ const Home = () => {
       dispatch(getAllDogs());
       dispatch(getAllTemperaments());
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="Home">
-      <Header setOpenModal={setOpenModal} />
+      <Header />
       <SearchBar onSearch={onSearch} />
       <Filter
         handlerFilters={handlerFilters}
@@ -63,7 +63,7 @@ const Home = () => {
         sendFiltersOptions={sendFiltersOptions}
         resetFilters={handlerResetFilters}
       />
-      {openModal && <Modal setOpenModal={setOpenModal} />}
+      {openModal && <Modal />}
       {loading && <Loader />}
       {!loading && (
         <>

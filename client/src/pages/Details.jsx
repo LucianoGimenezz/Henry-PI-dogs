@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getDogByID } from "../redux/actions";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { ModalContext } from "../context";
+import Modal from "../components/Modal";
 import "../styles/detail.css";
 import Header from "../components/Header";
 
 const Details = () => {
+  const { openModal } = useContext(ModalContext);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { detailDog } = useSelector((state) => state);
@@ -13,9 +16,9 @@ const Details = () => {
     dispatch(getDogByID(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(detailDog);
   return (
     <>
+      {openModal && <Modal />}
       <Header show={true} />
       <section className="Details">
         <section className="Details__container">

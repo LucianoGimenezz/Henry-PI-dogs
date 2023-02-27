@@ -16,7 +16,7 @@ export const Landing = () => {
       <img src={feet} alt="background" className="Landing-feet" />
       <img src={feet} alt="background" className="Landing-feet" />
       <button onClick={handlerRoute} className="Landing-button">
-        Go Home
+        Empezar
       </button>
     </main>
   );
