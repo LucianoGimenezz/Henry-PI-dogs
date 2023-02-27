@@ -5,7 +5,7 @@ FILTER_DOGS,
 RESET_FILTERS, 
 GET_DOG_BY_NAME,
 SET_LOADING,
-GET_DOG_BY_ID
+GET_DOG_BY_ID,
 } from '../actions/actions-type'
 
 import { filter, paginate } from '../../utils'
@@ -27,7 +27,7 @@ const reducer = (state = initialState, { type, payload }) => {
             allDogs: payload.dogs,
             filteredDogs: payload.dogs,
             totalPages: Object.keys(payload.dogs),
-            loading: !state.loading
+            loading: !state.loading ? state.loading : !state.loading
           }  
       case GET_ALLTEMPERAMENTS:
           return {

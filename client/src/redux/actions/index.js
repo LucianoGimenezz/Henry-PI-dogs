@@ -4,7 +4,7 @@ GET_ALLTEMPERAMENTS,
 FILTER_DOGS, RESET_FILTERS,
 GET_DOG_BY_NAME, 
 SET_LOADING,
-GET_DOG_BY_ID
+GET_DOG_BY_ID,
 } from './actions-type'
 
 import { paginate } from '../../utils'

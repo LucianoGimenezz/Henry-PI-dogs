@@ -37,6 +37,7 @@ const Home = () => {
 
   const handlerResetFilters = () => {
     dispatch(resetFilters());
+    setFilterOptions({});
     setCurrentPage(1);
   };
 
