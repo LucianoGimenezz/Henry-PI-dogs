@@ -1,5 +1,6 @@
 .Pagination {
     width: 100%;
+    max-width: 690px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -49,4 +50,12 @@
     width: 100%;
     height: 100%;
     padding: 4px;
+}
+
+@media (min-width: 900px) {
+    .Pagination__control,
+    .Pages__item
+    {
+        cursor: pointer;
+    }
 }

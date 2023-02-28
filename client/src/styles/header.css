@@ -4,10 +4,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 220px;
+  height: 100px;
   background-color: var(--primary-color);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px; */
   position: relative;
 
 }
@@ -50,4 +50,37 @@
 .Header__logo {
     width: 120px;
     height: 60px;
+}
+
+.Header__nav .Nav {
+  width: 300px;
+  height: 60px;
+  align-items: center;
+  display: none;
+  gap: 28px;
+}
+
+.Nav > a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: var(--secondary-color);
+}
+
+.Nav > a >li {
+  list-style: none;
+  letter-spacing: 2px;
+}
+
+.Nav > a >li:hover {
+  opacity: .6;
+}
+
+@media (min-width: 900px) {
+  .Header__button  {
+    display: none;
+  }
+
+  .Header__nav .Nav {
+    display: flex;
+  }
 }

@@ -13,7 +13,7 @@
     display: grid;
     gap: 10px;
     place-content: center;
-    grid-template-columns: repeat(auto-fill, 120px);
+    grid-template-columns: repeat(auto-fit, 120px);
 }
 
 .Home__filters  > select {
@@ -47,4 +47,24 @@
     display: flex;
     margin-top: 14px;
     padding: 14px;
+}
+
+@media (min-width: 620px) {
+    .Home__filters button {
+        grid-area: 2/1/2/3;
+    }
+
+    .Home__filters .Filters__btn {
+        grid-area: 2/3/2/5;
+    }
+}
+
+@media (min-width: 900px) {
+    .Home__filters  > select {
+        cursor: pointer;
+    }
+
+    .Home__filters  > button {
+        cursor: pointer;
+    }
 }

@@ -9,7 +9,6 @@ export function filter (options, dogs) {
     }
 
     if (options.temperament && options.temperament !== 'null') {
-        console.log('Execute');
         filteredDogs = dogs?.filter((item) => {
             return item.temperaments?.includes(options.temperament)
         })

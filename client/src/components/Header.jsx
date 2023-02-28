@@ -14,6 +14,14 @@ const Header = ({ show }) => {
           </Link>
         )}
         <Button />
+        <ul className="Nav">
+          <Link to="/home">
+            <li>Inicio</li>
+          </Link>
+          <Link to="/createDog">
+            <li>Crear perro</li>
+          </Link>
+        </ul>
       </nav>
       {!show && (
         <img className="Header__logo" src={feetLogo} alt="Logo de la pagina" />

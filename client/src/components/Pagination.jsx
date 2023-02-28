@@ -38,7 +38,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
       parseInt(e.target.innerHTML) === totalPages.length &&
       parseInt(e.target.innerHTML) !== lastIndex
     ) {
-      setFirstIndex(Math.floor(totalPages.length / 2));
+      setFirstIndex(Math.floor(totalPages.length / 2) - 1);
       setLastIndex(parseInt(e.target.innerHTML));
       return setCurrentPage(parseInt(e.target.innerHTML));
     }
@@ -96,7 +96,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
                   className="Pages__item active"
                   onClick={handlerPaginationOne}
                 >
-                  <p>{numero}</p>
+                  {numero}
                 </div>
               );
             }
@@ -106,7 +106,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
                 className="Pages__item"
                 onClick={handlerPaginationOne}
               >
-                <p>{numero}</p>
+                {numero}
               </div>
             );
           })}
@@ -119,7 +119,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
                   className="Pages__item active"
                   onClick={handlerPaginationOne}
                 >
-                  <p>{numero}</p>
+                  {numero}
                 </div>
               );
             }
@@ -129,7 +129,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
                 className="Pages__item"
                 onClick={handlerPaginationOne}
               >
-                <p>{numero}</p>
+                {numero}
               </div>
             );
           })}
