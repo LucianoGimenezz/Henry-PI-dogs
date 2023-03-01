@@ -16,6 +16,7 @@
 
 .Details__container {
     width: 80%;
+    max-width: 1095px;
     height: 500px;
     margin-top: 30px;
     display: flex;
@@ -25,6 +26,10 @@
     position: relative;
     align-items: center;
     justify-content: center;
+    transition: box-shadow .1s transform .1s;
+}
+
+.Details__container:hover {
     box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.4);
 }
 
@@ -44,6 +49,7 @@
 
 .Details__info {
     width: 100%;
+    max-width: 476px;
     height: 20%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -60,6 +66,7 @@
 
 .Details__temperament {
     width: 100%;
+    max-width: 520px;
     height: 40%;
     display: grid;
     position: absolute;
@@ -84,4 +91,38 @@
     font-size: .8rem;
     border-radius: 20px;
     background-color: var(--primary-color);
+}
+
+.Details__name > p {
+    place-self: center;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+@media (min-width: 1300px) {
+    .Details__container  {
+        align-items: end;
+    }
+
+    .Details__name {
+        width: 500px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 100px;
+    }
+
+    .Details__name > p {
+        font-size: 3rem;
+    }
+
+    .Details__container > img  {
+        left: 40px;
+        top: calc(50% - 140px);
+        max-width: 500px;
+        max-height: 300px;
+    }
 }
