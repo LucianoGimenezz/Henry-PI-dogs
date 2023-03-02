@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getDogByID } from "../redux/actions";
+import { getDogByID, cleanDetails } from "../redux/actions";
 import { useEffect, useContext, useRef } from "react";
 import { ModalContext } from "../context";
 import Modal from "../components/Modal";
@@ -14,6 +14,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const { detailDog } = useSelector((state) => state);
   useEffect(() => {
+    dispatch(cleanDetails());
     dispatch(getDogByID(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -25,7 +26,6 @@ const Details = () => {
   };
 
   const handlerAnimate = (e) => {
-    // const { clientX, clientY } = e;
     const { layerX, layerY } = e.nativeEvent;
     const height = detailRef.current.clientHeight;
     const width = detailRef.current.clientWidth;

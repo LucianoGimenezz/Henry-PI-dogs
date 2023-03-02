@@ -6,6 +6,7 @@ RESET_FILTERS,
 GET_DOG_BY_NAME,
 SET_LOADING,
 GET_DOG_BY_ID,
+CLEAN_DETAILS
 } from '../actions/actions-type'
 
 import { filter, paginate } from '../../utils'
@@ -65,6 +66,11 @@ const reducer = (state = initialState, { type, payload }) => {
         return {
           ...state,
           detailDog: payload[0]
+        }
+      case CLEAN_DETAILS:
+        return {
+          ...state, 
+          detailDog: {}
         }
       default: 
           return { ...state }

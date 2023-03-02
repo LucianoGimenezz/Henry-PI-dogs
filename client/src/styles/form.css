@@ -1,8 +1,10 @@
 .Form {
  width: 90%;
+ max-width: 750px;
  border-radius: 12px;
  display: flex;
  flex-direction: column;
+ box-shadow: 0px 0px 50px rgba(0,0,0, 0.5);
  background-color: var(--secondary-color);
 }
 
@@ -62,6 +64,7 @@
     margin: 0 auto;
     margin-top: 14px;
     margin-bottom: 20px;
+    cursor: pointer;
     border: none;
     background-color: var(--primary-color);
     color: #fff;
@@ -99,6 +102,7 @@
   top: -14px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
   position: absolute;
 }
 

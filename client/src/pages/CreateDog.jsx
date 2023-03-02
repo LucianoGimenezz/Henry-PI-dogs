@@ -17,13 +17,21 @@ const CreateDog = () => {
         <Link to="/home">
           <img src={logobackTo} alt="Volver atrás " />
         </Link>
+        <ul className="Nav">
+          <Link to="/home">
+            <li>Inicio</li>
+          </Link>
+          <Link to="/createDog">
+            <li>Crear perro</li>
+          </Link>
+        </ul>
+        <Button />
+      </section>
+      <section className="Create__container">
         <div>
           <img src={logoPerro} alt="Logo de un perro" />
           <h3>Crea tu Perro</h3>
         </div>
-        <Button />
-      </section>
-      <section className="Create__container">
         <Form />
       </section>
     </>

@@ -5,6 +5,7 @@ FILTER_DOGS, RESET_FILTERS,
 GET_DOG_BY_NAME, 
 SET_LOADING,
 GET_DOG_BY_ID,
+CLEAN_DETAILS
 } from './actions-type'
 
 import { paginate } from '../../utils'
@@ -68,3 +69,5 @@ export const filterDogs = (option) => ({ type: FILTER_DOGS, payload: option })
 export const resetFilters = () => ({ type: RESET_FILTERS })
 
 export const setLoading = () =>  ({ type: SET_LOADING })
+
+export const cleanDetails = () => ({ type: CLEAN_DETAILS })
