@@ -1,6 +1,7 @@
 .Container {
     width: 260px;
     height: 300px;
+    position: relative;
     border-radius: 12px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     place-self: center;
@@ -53,6 +54,18 @@
     justify-content: center;
     padding: 12px;
     align-items: end;
+}
+
+.Container__button-fav {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    right: 0;
+    top: -10px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--secondary-color);
 }
 
 .Container:hover .Container__info {

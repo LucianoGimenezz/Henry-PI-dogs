@@ -1,9 +1,32 @@
 import "../styles/card.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import useLocalStorage from "../hook/useLocalStorage";
 
 const Card = ({ image, name, temperaments, weight, id }) => {
+  const [isFavourite, setIsFavourite] = useState(false);
+  const { setLocalStorage, removeLocalStorage } = useLocalStorage("FAVS");
+
+  const handlerFavourite = () => {
+    if (isFavourite) {
+      removeLocalStorage(id);
+    } else {
+      setLocalStorage({
+        image,
+        name,
+        temperaments,
+        weight,
+        id,
+      });
+    }
+    setIsFavourite(!isFavourite);
+  };
+
   return (
     <div className="Container" style={{ backgroundImage: `url(${image})` }}>
+      <button className="Container__button-fav" onClick={handlerFavourite}>
+        {isFavourite ? "💛" : "🤍"}
+      </button>
       <div className="Container__info">
         <div className="Info__name">
           <Link

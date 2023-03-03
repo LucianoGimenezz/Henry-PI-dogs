@@ -21,6 +21,9 @@ const Header = ({ show }) => {
           <Link to="/createDog">
             <li>Crear perro</li>
           </Link>
+          <Link to="/favourites">
+            <li>Favourites</li>
+          </Link>
         </ul>
       </nav>
       {!show && (
