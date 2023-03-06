@@ -16,9 +16,11 @@ import {
 } from "../redux/actions/";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/home.css";
+import useLocalStorage from "../hook/useLocalStorage";
 
 const Home = () => {
   const { openModal } = useContext(ModalContext);
+  const { createDic } = useLocalStorage("FAVS");
   const { filteredDogs, temperaments, loading } = useSelector((store) => store);
   const dispatch = useDispatch();
   const [filterOptions, setFilterOptions] = useState({});
@@ -31,7 +33,7 @@ const Home = () => {
   };
 
   const onSearch = (name) => {
-    dispatch(getDogByName(name));
+    dispatch(getDogByName(name, createDic()));
     setCurrentPage(1);
   };
 
@@ -47,10 +49,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (filteredDogs?.length === 0) {
-      dispatch(getAllDogs());
-      dispatch(getAllTemperaments());
-    }
+    // if (filteredDogs?.length === 0) {
+    //   dispatch(getAllDogs(createDic()));
+    //   dispatch(getAllTemperaments());
+    // }
+    dispatch(getAllDogs(createDic()));
+    dispatch(getAllTemperaments());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

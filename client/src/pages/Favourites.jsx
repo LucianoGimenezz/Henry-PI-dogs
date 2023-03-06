@@ -8,7 +8,7 @@ import "../styles/favourite.css";
 
 const Favourites = () => {
   const { openModal } = useContext(ModalContext);
-  const { getLocalStorage } = useLocalStorage("FAVS");
+  const { getLocalStorage, favs: storageFavs } = useLocalStorage("FAVS");
   const [favs, setFavs] = useState([]);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const Favourites = () => {
             temperaments={item.temperaments}
             name={item.name}
             weight={item.weight}
+            isFav={item.isFav}
           />
         ))}
       </section>

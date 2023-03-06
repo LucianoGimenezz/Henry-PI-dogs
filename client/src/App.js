@@ -10,7 +10,7 @@ import './styles/app.css'
 
 function App() {
   const { createLocalStorage } = useLocalStorage('FAVS')
-  createLocalStorage()
+  createLocalStorage() 
   return (
     <ModalProvider>
       <div className="App">

@@ -6,7 +6,8 @@ RESET_FILTERS,
 GET_DOG_BY_NAME,
 SET_LOADING,
 GET_DOG_BY_ID,
-CLEAN_DETAILS
+CLEAN_DETAILS,
+ADD_FAV
 } from '../actions/actions-type'
 
 import { filter, paginate } from '../../utils'
@@ -72,6 +73,17 @@ const reducer = (state = initialState, { type, payload }) => {
           ...state, 
           detailDog: {}
         }
+      case ADD_FAV:
+        const dogs = Object.values(state.filteredDogs).flat()
+        for (let i = 0; i < dogs.length; i++) { 
+          console.log('Entry')
+          if (dogs[i].id === payload.id) {
+            console.log(dogs[i])
+            dogs[i].isFav = payload.action === 'add' ? true : false            
+            break;
+          }
+        }
+        return { ...state, filteredDogs: paginate(dogs) }
       default: 
           return { ...state }
     }

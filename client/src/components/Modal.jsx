@@ -10,7 +10,8 @@ const Modal = () => {
   const handlerNavigate = (e) => {
     setOpenModal(false);
     if (e.target.innerHTML === "Inicio") return navigate("/home");
-    navigate("/createDog");
+    if (e.target.innerHTML === "Crear perro") return navigate("/createDog");
+    navigate("/favourites");
   };
   return ReactDOM.createPortal(
     <div className="Modal">
@@ -19,6 +20,7 @@ const Modal = () => {
         <div className="Modal__items">
           <p onClick={handlerNavigate}>Inicio</p>
           <p onClick={handlerNavigate}>Crear perro</p>
+          <p onClick={handlerNavigate}>Favoritos</p>
         </div>
       </div>
     </div>,

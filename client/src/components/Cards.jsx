@@ -15,6 +15,7 @@ const Cards = ({ allDogs }) => {
             weight={item.weight}
             height={item.height}
             temperaments={item.temperaments}
+            isFav={item.isFav}
           />
         );
       })}
