@@ -1,0 +1,17 @@
+name: Test API
+
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: move to API folder
+        run: cd api
+      - name: List folders
+        run: ls
