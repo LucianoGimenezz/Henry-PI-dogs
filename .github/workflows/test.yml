@@ -11,5 +11,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: List folders
-        run: cd api && ls 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: cd api && npm install --no-audit --no-fund --no-optional
+      - name: Run test db
+        run: cd api && npm run test:db 
