@@ -12,4 +12,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: List folders
-        run: ls
+        run: cd api && ls 
