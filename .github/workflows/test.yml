@@ -19,6 +19,12 @@ jobs:
           - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
     steps:
+      - name: Create database
+        env:
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: |
+          psql -h localhost:5432 -U postgres -c "CREATE DATABASE dogs;"
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -29,12 +35,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Create database
-        env:
-          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE dogs;"
-
       - name: Create .env
         run: cd api && touch .env
 
@@ -43,7 +43,7 @@ jobs:
       
       - name: Checkout .env content
         run: cd api && cat .env
-        
+
       - name: Install dependencies
         run: cd api && npm ci
       - name: Run test db
