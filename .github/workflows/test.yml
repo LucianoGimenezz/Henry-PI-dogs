@@ -7,14 +7,44 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
+    services:
+      db:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+          POSTGRES_HOST: localhost
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+
+      - name: Create database
+        env:
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: |
+          psql -h localhost -U postgres -c "CREATE DATABASE dogs;"
+
+      - name: Create .env
+        run: cd api && touch .env
+
+      - name: Fill .env file
+        run: cd api && echo "DB_HOST=localhost" > .env
+      
+      - name: Checkout .env content
+        run: cd api && cat .env
+        
       - name: Install dependencies
-        run: cd api && npm install --no-audit --no-fund --no-optional
+        run: cd api && npm ci
       - name: Run test db
         run: cd api && npm run test:db 
