@@ -14,7 +14,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test
-          POSTGRES_HOST: localhost
         ports:
           - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
@@ -23,7 +22,7 @@ jobs:
         env:
           PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
-          psql -h localhost:5432 -U postgres -c "CREATE DATABASE dogs;"
+          psql -h localhost -U postgres -c "CREATE DATABASE dogs;"
 
       - name: Checkout code
         uses: actions/checkout@v3
